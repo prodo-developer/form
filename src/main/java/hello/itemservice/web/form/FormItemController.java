@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -18,6 +20,18 @@ import java.util.List;
 public class FormItemController {
 
     private final ItemRepository itemRepository;
+
+    // @ModelAttribute을 이용한 공통 사용 별도의 메서드 적용 가능
+    @ModelAttribute("regions")
+    public Map<String, String> regions() {
+        // 순서보장되는 MAP
+        Map<String, String> regions = new LinkedHashMap<>();
+        regions.put("SEOUL", "서울");
+        regions.put("BUSAN", "부산");
+        regions.put("JEJU", "제주");
+
+        return regions;
+    }
 
     @GetMapping
     public String items(Model model) {
@@ -30,12 +44,28 @@ public class FormItemController {
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
+
+        // 순서보장되는 MAP
+//        LinkedHashMap<Object, Object> regions = new LinkedHashMap<>();
+//        regions.put("SEOUL", "서울");
+//        regions.put("BUSAN", "부산");
+//        regions.put("JEJU", "제주");
+//        model.addAttribute("regions", regions);
+
         return "form/item";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
+
+        // 순서보장되는 MAP
+//        LinkedHashMap<Object, Object> regions = new LinkedHashMap<>();
+//        regions.put("SEOUL", "서울");
+//        regions.put("BUSAN", "부산");
+//        regions.put("JEJU", "제주");
+//        model.addAttribute("regions", regions);
+
         return "form/addForm";
     }
 
@@ -53,6 +83,14 @@ public class FormItemController {
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
+
+        // 순서보장되는 MAP
+//        LinkedHashMap<Object, Object> regions = new LinkedHashMap<>();
+//        regions.put("SEOUL", "서울");
+//        regions.put("BUSAN", "부산");
+//        regions.put("JEJU", "제주");
+//        model.addAttribute("regions", regions);
+
         return "form/editForm";
     }
 
