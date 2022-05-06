@@ -83,6 +83,7 @@ public class FormItemController {
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
         log.info("item.open={}", item.isOpen()); // boolean 타입
         log.info("item.regions={}", item.getRegions());
+        log.info("item.itemType={}", item.getItemType());
 //        log.info("item.open={}", item.getOpen()); // Boolean 타입 하나의 트릭을 사용할수 있음
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
